@@ -87,9 +87,7 @@ public class PrefixCalculator {
       }
   }
   
-    public static void main(String[] args) {
-        
-    }
+  
     
     
 }
