@@ -37,35 +37,45 @@ public class PrefixCalc extends Application{
     private TextField displayField; 
     private TextField resultField;
     private TextField cmdField;
-    private String pExpr;
+   
   
     @Override
     public void start(Stage primaryStage) throws Exception {
       
+        //setting up stuff for Prefix Exp
       Label prefixExp = new Label("Prefix Expression");
       displayField = new TextField();
       displayField.setEditable(false);
+      //Prefix Exp HBox
       HBox display = new HBox();
       display.getChildren().addAll(prefixExp, displayField);
       
+      //result output set up
       Label result = new Label("Result Output: ");
       resultField = new TextField();
       resultField.setEditable(false);
+      
+      //result hbox
       HBox results = new HBox();
       results.getChildren().addAll(result, resultField);
       
       
       
-      
+      //input line set up
       cmdField = new TextField();
       EventHandler<ActionEvent> handle = new CmdTextListener();
       Label cmdLabel = new Label("Enter Your Expression: ");
+      
+      //hbox for input line
       HBox cmd = new HBox();
       cmd.getChildren().addAll(cmdLabel, cmdField);
       
+      //main vbox for all hboxes 
       VBox main = new VBox(20);
       main.getChildren().addAll(display, results, cmd);
       
+      
+      //majic for stage ;)
       primaryStage.setScene(new Scene(main));
       primaryStage.setTitle("My Program");
       primaryStage.show();
@@ -78,10 +88,10 @@ public class PrefixCalc extends Application{
     {
         @Override
         public void handle(ActionEvent event) {
-             pExpr = cmdField.getText();
+            String pExpr = cmdField.getText();
             Node exprTree = buildExpr(new Scanner(pExpr));
             int value = eval(exprTree);
-            displayField.setText(pExpr);
+           displayField.setText(pExpr);
             resultField.setText(String.valueOf(value));
             
         }
@@ -114,8 +124,8 @@ public class PrefixCalc extends Application{
         private class Node
         {
             String value;
-            Node left;
-            Node right;
+            Node left, right;
+
             Node(String v, Node l, Node r)
             {
                 value = v;
