@@ -34,17 +34,19 @@ import static jdk.nashorn.internal.runtime.JSType.isNumber;
  * @author Zachary Murphy
  */
 public class PrefixCalc extends Application{
-    private TextField displayField; 
+     private TextField displayField; 
     private TextField resultField;
     private TextField cmdField;
+   
    
   
     @Override
     public void start(Stage primaryStage) throws Exception {
+        PrefixCalc one = new PrefixCalc();
       
         //setting up stuff for Prefix Exp
       Label prefixExp = new Label("Prefix Expression");
-      displayField = new TextField();
+      TextField displayField = new TextField();
       displayField.setEditable(false);
       //Prefix Exp HBox
       HBox display = new HBox();
@@ -52,7 +54,7 @@ public class PrefixCalc extends Application{
       
       //result output set up
       Label result = new Label("Result Output: ");
-      resultField = new TextField();
+      TextField resultField = new TextField();
       resultField.setEditable(false);
       
       //result hbox
@@ -62,19 +64,23 @@ public class PrefixCalc extends Application{
       
       
       //input line set up
-      cmdField = new TextField();
-      EventHandler<ActionEvent> handle = new CmdTextListener();
+      TextField cmdField = new TextField();
       Label cmdLabel = new Label("Enter Your Expression: ");
+       
+      
       
       //hbox for input line
       HBox cmd = new HBox();
       cmd.getChildren().addAll(cmdLabel, cmdField);
       
+      Button submit = new Button("Calculate");
+      
       //main vbox for all hboxes 
       VBox main = new VBox(20);
-      main.getChildren().addAll(display, results, cmd);
-      
-      
+      main.getChildren().addAll(display, results, cmd, submit);
+      EventHandler<ActionEvent> handle = new CmdTextListener();
+      submit.setOnAction(handle);
+
       //majic for stage ;)
       primaryStage.setScene(new Scene(main));
       primaryStage.setTitle("My Program");
@@ -82,12 +88,18 @@ public class PrefixCalc extends Application{
       
       
 }
+
     
     //reads prefix input
       private class CmdTextListener implements EventHandler<ActionEvent>
+              
     {
+   
+    
+
         @Override
         public void handle(ActionEvent event) {
+            
             String pExpr = cmdField.getText();
             Node exprTree = buildExpr(new Scanner(pExpr));
             int value = eval(exprTree);
@@ -155,7 +167,7 @@ public class PrefixCalc extends Application{
     }
 
 
-    }  
+    }
 
 
 
