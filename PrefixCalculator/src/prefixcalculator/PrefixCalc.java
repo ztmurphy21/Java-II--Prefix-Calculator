@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -37,25 +38,33 @@ public class PrefixCalc extends Application{
     private TextField resultField;
     private TextField cmdField;
     private String pExpr;
-   @Override 
+  
+    @Override
     public void start(Stage primaryStage) throws Exception {
-      //Panel resultPanel = new Panel(new GridLayout(2,2));
+      
       Label prefixExp = new Label("Prefix Expression");
       displayField = new TextField();
       displayField.setEditable(false);
+      HBox display = new HBox();
+      display.getChildren().addAll(prefixExp, displayField);
       
       Label result = new Label("Result Output: ");
       resultField = new TextField();
       resultField.setEditable(false);
+      HBox results = new HBox();
+      results.getChildren().addAll(result, resultField);
+      
+      
       
       
       cmdField = new TextField();
       EventHandler<ActionEvent> handle = new CmdTextListener();
-      //Panel cmdPanel = new Panel(new GridLayout(1,2));
       Label cmdLabel = new Label("Enter Your Expression: ");
+      HBox cmd = new HBox();
+      cmd.getChildren().addAll(cmdLabel, cmdField);
       
       VBox main = new VBox(20);
-      main.getChildren().addAll(prefixExp, displayField, result, resultField, cmdLabel, cmdField);
+      main.getChildren().addAll(display, results, cmd);
       
       primaryStage.setScene(new Scene(main));
       primaryStage.setTitle("My Program");
@@ -132,7 +141,7 @@ public class PrefixCalc extends Application{
         }
      }
     public static void main(String[] args){
-        launch();
+        launch(args);
     }
 
 
